@@ -6,7 +6,6 @@
 
   <!-- dropjs including tether -->
   <script src="../../bower_components/drop/drop.min.js"></script>
-  <link href="../../bower_components/drop/css/drop-theme-arrows-bounce.css" rel="stylesheet" />
   <link href="../../bower_components/drop/css/drop-theme-arrows-bounce-dark.css" rel="stylesheet" />
 
   <!-- drop-ng -->
@@ -24,7 +23,11 @@
       $scope.constrainToWindow = 'true';
       $scope.openOn = 'click';
       $scope.position = 'bottom center';
-      $scope.someValue = 'value from controller';
+      $scope.someValue = 'This is a value from my controller';
+      $scope.things = [{code: '1', name: 'one'},
+                        {code: '2', name: 'two'},
+                        {code: '3', name: 'three'},
+                        {code: '4', name: 'quatro'}];
     });
   </script>
 
@@ -42,20 +45,21 @@
 <body ng-app="myapp">
   <h2>drop-ng example</h2>
 
-  <div ng-controller="mycontroller">
-    <div>
+  <div>
+    <div ng-controller="mycontroller">
       <p>
         <span>
           drop-ng provides an Angular wrapper around Drop.js. <br/><br/>
           Drop.js is a Javascript and CSS library for creating dropdowns and other popups attached to elements on the page.
         </span>
       </p>
-      <p>
-        <span>The following text will appear within the drop:</span>
-        <input type="text" ng-model="someValue" />
-      </p>
+
       <button>
-        Click me
+        button text {{someValue}}
+
+        <ul>
+          <li ng-repeat="thing in things">button text {{thing.code}} - {{thing.name}}</li>
+        </ul>
 
         <drop classes='classes'
               constrain-to-scroll-parent='constrainToScrollParent'
@@ -64,7 +68,12 @@
               position='position'>
 
             <div>
-                Hello {{ $parent.someValue }}
+                Hello {{ $parent.someValue}}
+              <br>
+
+              <ul>
+                <li ng-repeat="thing in $parent.things">{{thing.code}} - {{thing.name}}</li>
+              </ul>
             </div>
 
         </drop>
