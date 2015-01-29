@@ -17,18 +17,19 @@ Install these NPM packages globally:
 - Type `bower install`
 
 ## Running
-Type `http-server` and browse to `http://localhost:8080/example/simple` to run the simple example
+Type `http-server` and browse to [http://localhost:8080/example/simple](http://localhost:8080/example/simple) to run the simple example
 
 ## Unit Tests
-Type 'karma start karma.config.js'
+Type `karma start karma.config.js`
 
-## e2e Tests
-- Setting up protractor and selenium
--   Install JDK:  http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
-- 	npm install -g protractor
-- 	webdriver-manager update 
--
-- To run 2e2 tests:
--  Open new terminal and type 'webdriver-manager start'
--  Open new terminal and type: 'http-server'
--  Open new terminal and type: 'protractor protractor.config.js'
+## Setting up e2e Tests
+Setting up protractor and selenium:
+
+-   Install JDK: [http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- 	Type `npm install -g protractor`
+- 	Type `webdriver-manager update` 
+
+## Running e2e Tests
+-  Open new terminal and type `webdriver-manager start`
+-  Open new terminal and type: `http-server`
+-  Open new terminal and type: `protractor protractor.config.js`
