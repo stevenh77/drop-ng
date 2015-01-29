@@ -1,0 +1,20 @@
+{
+  "name": "drop-ng",
+  "version": "0.0.1",
+  "description": "An AngularJS wrapper module for Drop.js",
+  "authors": [
+    "stevenh77 <stevenhollidge@hotmail.com>"
+  ],
+  "keywords": [
+    "angular",
+    "drop"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/stevenh77/drop-ng",
+  "dependencies": {
+    "drop": "~0.5.5",
+    "angular": "~1.3.11",
+    "angular-mocks": "~1.3.11",
+    "jquery": "~2.1.3"
+  }
+}
