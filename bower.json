@@ -15,7 +15,7 @@
   ],
   "ignore": [
     "/*",
-    "!/src/*"
+    "!/src"
   ],
   "main": [
     "src/drop-ng.js"
