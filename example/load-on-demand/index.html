@@ -2,10 +2,10 @@
 <html>
 <head>
   <!-- angular -->
-  <script src="../../bower_components/angular/angular.min.js"></script>
+  <script src="../../bower_components/angular/angular.js"></script>
 
   <!-- dropjs including tether -->
-  <script src="../../bower_components/drop/drop.min.js"></script>
+  <script src="../../bower_components/drop/drop.js"></script>
   <link href="../../bower_components/drop/css/drop-theme-arrows-bounce-dark.css" rel="stylesheet" />
 
   <!-- drop-ng -->
@@ -24,7 +24,7 @@
       vm.position = 'bottom center';
       vm.someValue = 'This is a value from my controller';
       vm.things = [];
-      
+
       vm.loadOnDemand = function(){
       $timeout(function(){
         vm.things = [{code: '1', name: 'one'},
@@ -33,7 +33,7 @@
                         {code: '4', name: 'quatro'}];
                         }, 500);
       }
-      
+
       vm.doSomething = function(name){
         alert(name);
       }
@@ -52,6 +52,14 @@
     .ng-hide {
       display: none !important;
     }
+    .buttonAsLink {
+      background:none!important;
+      border:none;
+      padding:0!important;
+      /*border is optional*/
+      border-bottom:1px solid #444;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -66,7 +74,7 @@
         </span>
       </p>
 
-      <a href ng-click="vm.loadOnDemand()">
+      <button class="buttonAsLink" ng-click="vm.loadOnDemand()">
         Click to load contents on demand
 
         <drop classes='vm.classes'
@@ -74,21 +82,16 @@
               constrain-to-window='vm.constrainToWindow'
               open-on='vm.openOn'
               position='vm.position'>
-
             <div>
                 Hello !
                 <ul>
-                <li ng-repeat="thing in $parent.vm.things">                    
-                    <a href ng-click="$parent.vm.doSomething(thing.name)">{{thing.code}} - {{thing.name}}</a>
+                <li ng-repeat="thing in $parent.vm.things">
+                    <a ng-click="$parent.$parent.vm.doSomething(thing.name)">{{thing.code}} - {{thing.name}}</a>
                 </li>
               </ul>
             </div>
-            
-            
-            
-
         <drop>
-      </a>
+      </button>
 
       <p>
         <span>
