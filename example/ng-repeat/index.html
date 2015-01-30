@@ -19,8 +19,6 @@
 
     myapp.controller('mycontroller', function ($scope) {
       $scope.classes = 'drop-theme-arrows-bounce-dark';
-      $scope.constrainToScrollParent = 'true';
-      $scope.constrainToWindow = 'true';
       $scope.openOn = 'click';
       $scope.position = 'bottom center';
       $scope.someValue = 'This is a value from my controller';
@@ -39,6 +37,9 @@
     }
     button {
       margin-left:200px
+    }
+    .ng-hide {
+      display: none !important;
     }
   </style>
 </head>
