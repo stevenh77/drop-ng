@@ -29,71 +29,77 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           position: '=?',
           openOn: '=?'
         },
-        template: '<div><div ng-transclude></div></div>',
-        link: function (scope, element, attrs) {
-          var drop;
-          var target = element[0].parentElement;
-          var compiled = $compile(element[0].children[0].innerHTML);
+        link: {
+          pre: function(scope, element, attrs, ctrl, transclude){
+            transclude(scope, function(clone, scope) {
+              element.append(clone);
+            });
+          },
+          post:function (scope, element, attrs) {
+            var drop;
+            var target = element[0].parentElement;
+            var compiled = $compile(element[0].children[0]);
 
-          var initDrop = function() {
-            if (drop) {
-              drop.destroy();
+            var initDrop = function() {
+              if (drop) {
+                drop.destroy();
+              }
+
+              if (typeof scope.classes == 'undefined') scope.classes = 'drop-theme-arrows-bounce';
+              if (typeof scope.constrainToScrollParent == 'undefined') scope.constrainToScrollParent = true;
+              if (typeof scope.constrainToWindow == 'undefined') scope.constrainToWindow = true;
+              if (typeof scope.position == 'undefined') scope.position = 'top center';
+              if (typeof scope.openOn == 'undefined') scope.openOn = 'click';
+
+              drop = new Drop({
+                target: target,
+                content: compiled(scope)[0],
+                classes: scope.classes,
+                constrainToScrollParent: scope.constrainToScrollParent,
+                constrainToWindow: scope.constrainToWindow,
+                position: scope.position,
+                openOn: scope.openOn
+              });
             }
 
-            if (typeof scope.classes == 'undefined') scope.classes = 'drop-theme-arrows-bounce';
-            if (typeof scope.constrainToScrollParent == 'undefined') scope.constrainToScrollParent = true;
-            if (typeof scope.constrainToWindow == 'undefined') scope.constrainToWindow = true;
-            if (typeof scope.position == 'undefined') scope.position = 'top center';
-            if (typeof scope.openOn == 'undefined') scope.openOn = 'click';
+            initDrop();
 
-            drop = new Drop({
-              target: target,
-              content: compiled(scope)[0],
-              classes: scope.classes,
-              constrainToScrollParent: scope.constrainToScrollParent,
-              constrainToWindow: scope.constrainToWindow,
-              position: scope.position,
-              openOn: scope.openOn
+            // clean up element
+            //element[0].innerHTML = '';
+
+            scope.$watch('classes', function (newValue, oldValue) {
+              if (newValue !== oldValue)
+                initDrop();
+            });
+
+            scope.$watch('constrainToScrollParent', function(newValue, oldValue) {
+              if (newValue !== oldValue)
+                initDrop();
+            });
+
+            scope.$watch('constrainToWindow', function(newValue, oldValue) {
+              if (newValue !== oldValue)
+                initDrop();
+            });
+
+            scope.$watch('position', function(newValue, oldValue) {
+              if (newValue !== oldValue)
+                initDrop();
+            });
+
+            scope.$watch('openOn', function(newValue, oldValue) {
+              if (newValue !== oldValue)
+                initDrop();
+            });
+
+            scope.$on('$destroy', function () {
+              if (drop) drop.destroy();
+              if (initDrop) initDrop.destroy();
+              setTimeout(function () {
+                element.remove();
+              }, 0);
             });
           }
-
-          initDrop();
-
-          // clean up element
-          element[0].innerHTML = '';
-
-          scope.$watch('classes', function (newValue, oldValue) {
-            if (newValue !== oldValue)
-              initDrop();
-          });
-
-          scope.$watch('constrainToScrollParent', function(newValue, oldValue) {
-            if (newValue !== oldValue)
-              initDrop();
-          });
-
-          scope.$watch('constrainToWindow', function(newValue, oldValue) {
-            if (newValue !== oldValue)
-              initDrop();
-          });
-
-          scope.$watch('position', function(newValue, oldValue) {
-            if (newValue !== oldValue)
-              initDrop();
-          });
-
-          scope.$watch('openOn', function(newValue, oldValue) {
-            if (newValue !== oldValue)
-              initDrop();
-          });
-
-          scope.$on('$destroy', function () {
-            if (drop) drop.destroy();
-            if (initDrop) initDrop.destroy();
-            setTimeout(function () {
-                element.remove();
-            }, 0);
-          });
         }
       }
     });
