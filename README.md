@@ -4,7 +4,10 @@ An AngularJS wrapper module for Drop.js
 ## Source
 [https://github.com/stevenh77/drop-ng](https://github.com/stevenh77/drop-ng)
 
-## Prerequisites
+## Installing drop-ng in your app
+Type `bower install drop-ng --save` 
+
+## Prerequisites for development
 Install [Node.js](http://nodejs.org)
 
 Install these NPM packages globally:
@@ -16,7 +19,7 @@ Install these NPM packages globally:
 - Type `npm install`
 - Type `bower install`
 
-## Running
+## Running the examples
 Type `http-server` and browse to [http://localhost:8080/example/simple](http://localhost:8080/example/simple) to run the simple example
 
 ## Unit Tests
