@@ -5,9 +5,20 @@
   "authors": [
     "stevenh77 <stevenhollidge@hotmail.com>"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stevenh77/drop-ng.git"
+  },
   "keywords": [
     "angular",
     "drop"
+  ],
+  "ignore": [
+    "/*",
+    "!/src/*"
+  ],
+  "main": [
+    "src/drop-ng.js"
   ],
   "license": "MIT",
   "homepage": "https://github.com/stevenh77/drop-ng",
