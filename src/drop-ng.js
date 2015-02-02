@@ -31,7 +31,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         },
         link: {
           pre: function(scope, element, attrs, ctrl, transclude){
-            transclude(scope, function(clone, scope) {
+            transclude(scope.$parent, function(clone, scope) {
               element.append(clone);
             });
           },
@@ -44,7 +44,6 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
               if (drop) {
                 drop.destroy();
               }
-
               if (typeof scope.classes == 'undefined') scope.classes = 'drop-theme-arrows-bounce';
               if (typeof scope.constrainToScrollParent == 'undefined') scope.constrainToScrollParent = true;
               if (typeof scope.constrainToWindow == 'undefined') scope.constrainToWindow = true;

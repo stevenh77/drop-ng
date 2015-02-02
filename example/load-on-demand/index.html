@@ -85,8 +85,8 @@
             <div>
                 Hello !
                 <ul>
-                <li ng-repeat="thing in $parent.vm.things">
-                    <a ng-click="$parent.$parent.vm.doSomething(thing.name)">{{thing.code}} - {{thing.name}}</a>
+                <li ng-repeat="thing in vm.things">
+                    <a ng-click="vm.doSomething(thing.name)">{{thing.code}} - {{thing.name}}</a>
                 </li>
               </ul>
             </div>
