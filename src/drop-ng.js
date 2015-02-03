@@ -7,6 +7,7 @@
 //          open-on='click'
 //          position='bottom left'>
 //      Rich HTML content here
+//      <span drop-close>Click to close</span>
 //    </drop>
 // </button>
 if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.exports === exports){
@@ -29,30 +30,38 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           position: '=?',
           openOn: '=?'
         },
+        controller: function($scope){
+            var _this = this;
+            this.drop = null;
+            this.close = function(){
+                if (_this.drop){
+                    _this.drop.close();
+                }
+            }        
+        },
         link: {
           pre: function(scope, element, attrs, ctrl, transclude){
             transclude(scope.$parent, function(clone, scope) {
               element.append(clone);
             });
           },
-          post:function (scope, element, attrs) {
-            var drop;
+          post:function (scope, element, attrs, ctrl) {
             var target = element[0].parentElement;
             var compiled = $compile(element[0].children[0]);
-
+            var dropContent = compiled(scope)[0];
             var initDrop = function() {
-              if (drop) {
-                drop.destroy();
+              if (ctrl.drop) {
+                ctrl.drop.destroy();
               }
               if (typeof scope.classes == 'undefined') scope.classes = 'drop-theme-arrows-bounce';
               if (typeof scope.constrainToScrollParent == 'undefined') scope.constrainToScrollParent = true;
               if (typeof scope.constrainToWindow == 'undefined') scope.constrainToWindow = true;
               if (typeof scope.position == 'undefined') scope.position = 'top center';
               if (typeof scope.openOn == 'undefined') scope.openOn = 'click';
-
-              drop = new Drop({
+                
+              ctrl.drop = new Drop({
                 target: target,
-                content: compiled(scope)[0],
+                content: dropContent,
                 classes: scope.classes,
                 constrainToScrollParent: scope.constrainToScrollParent,
                 constrainToWindow: scope.constrainToWindow,
@@ -92,7 +101,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
             });
 
             scope.$on('$destroy', function () {
-              if (drop) drop.destroy();
+              if (ctrl.drop) ctrl.drop.destroy();
               if (initDrop) initDrop.destroy();
               setTimeout(function () {
                 element.remove();
@@ -101,5 +110,16 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           }
         }
       }
+    })
+    .directive('dropClose', function(){
+        return {
+            require: '^drop',
+            restrict: 'A',
+            link: function(scope, element, attrs, dropCtrl){
+                element.on('click', function(){                
+                    dropCtrl.close();
+                });
+            }
+        };
     });
 }());
