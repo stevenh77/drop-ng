@@ -1,0 +1,62 @@
+/* only supports bottom drop down */
+
+.drop-element, .drop-element:after, .drop-element:before, .drop-element *, .drop-element *:after, .drop-element *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.drop-element {
+  position: absolute;
+  display: none;
+}
+.drop-element.drop-open {
+  display: block;
+}
+.drop-element.drop-theme-slide-down {
+  max-width: 100%;
+  max-height: 100%;
+}
+.drop-element.drop-theme-slide-down .drop-content {
+  position: relative;
+  font-family: inherit;
+  background: white;
+  color: map-get($color-primary, '1000');
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+}
+.drop-element.drop-theme-slide-down {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transition: opacity 0.1s;
+  -moz-transition: opacity 0.1s;
+  -o-transition: opacity 0.1s;
+  transition: opacity 0.1s;
+  opacity: 0;
+}
+.drop-element.drop-theme-slide-down .drop-content {
+  max-height: 0;
+  overflow-y: hidden;
+  -webkit-transition: max-height 1s ease-in-out;
+  -moz-transition: max-height 1s ease-in-out;
+  -o-transition: max-height 1s ease-in-out;
+  transition: max-height 1s ease-in-out;
+}
+.drop-element.drop-theme-slide-down.drop-open {
+}
+.drop-element.drop-theme-slide-down.drop-open-transitionend {
+  max-height: 100%;
+  opacity: 1;
+}
+.drop-element.drop-theme-slide-down.drop-after-open {
+  max-height: 100%;
+}
+.drop-element.drop-theme-slide-down.drop-after-open .drop-content {
+  max-height: 600px;
+}
