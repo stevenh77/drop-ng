@@ -16,7 +16,9 @@ describe('[unit] drop-ng: simple example', function () {
     return angular.element(document.body).find('#displayTextWithinDrop');
   }
 
-  it('should appear when parent button is clicked, display text from controller and close when parent button clicked again', inject(function ($compile, $rootScope, $timeout) {
+  it('should appear when parent button is clicked, display text from controller and close when parent button clicked again',
+    inject(function ($compile, $rootScope) {
+
     var element = $compile(
       '<button id="button"> Click me!' +
         '<drop classes="classes" ' +
@@ -56,5 +58,6 @@ describe('[unit] drop-ng: simple example', function () {
 
     // cleanup
     $(element).remove();
+    $('.drop').remove();
   }));
 });

@@ -11,8 +11,8 @@
  *  protractor protractor.config.js
  */
 
-describe('drop-ng: set focus on open example', function () {
-     it('should appear when parent button is clicked, display text from controller and close when parent button clicked again', function() {
+describe('[e2e] drop-ng: set focus on open example', function () {
+     it('should appear when parent button is clicked and focusForTarget element should have focus', function() {
        browser.get('http://localhost:8080/example/set-focus-on-open');
 
        // check drop doesn't exist
