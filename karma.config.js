@@ -24,6 +24,9 @@ module.exports = function(config) {
 
             // tests
             './tests/unit/*.spec.js',
+
+            // css
+            './bower_components/drop/css/drop-theme-arrows-bounce-dark.css',
     ],
 
     // list of files to exclude
