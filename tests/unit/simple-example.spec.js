@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Module: drop-ng, Directive: <drop>', function () {
+describe('[unit] drop-ng: simple example', function () {
 
   beforeEach(module('drop-ng'));
 
@@ -12,7 +12,11 @@ describe('Module: drop-ng, Directive: <drop>', function () {
     return angular.element(document.body).find('#button');
   }
 
-  it('should appear on button click and disappear on second click', inject(function ($compile, $rootScope, $timeout) {
+  function findDropContentText() {
+    return angular.element(document.body).find('#displayTextWithinDrop');
+  }
+
+  it('should appear when parent button is clicked, display text from controller and close when parent button clicked again', inject(function ($compile, $rootScope, $timeout) {
     var element = $compile(
       '<button id="button"> Click me!' +
         '<drop classes="classes" ' +
@@ -20,7 +24,9 @@ describe('Module: drop-ng, Directive: <drop>', function () {
               'constrain-to-window="constrainToWindow" ' +
               'open-on="openOn" ' +
               'position="position">' +
-          'Rich HTML content here' +
+          '<div id="displayTextWithinDrop">' +
+                'Hello {{ $parent.someValue }}' +
+          '</div>' +
         '</drop>' +
       '</button>')($rootScope);
     
@@ -31,7 +37,7 @@ describe('Module: drop-ng, Directive: <drop>', function () {
     $rootScope.$apply('constrainToWindow = true');
     $rootScope.$apply('openOn = "click"');
     $rootScope.$apply('position = "bottom center"');
-
+    $rootScope.$apply('someValue = "value from controller"');
 
     // checking drop doesn't exist yet
     expect(findDrop().length).toBe(0);
@@ -41,11 +47,11 @@ describe('Module: drop-ng, Directive: <drop>', function () {
     findButton()[0].click();
     expect(findDrop().length).toBe(1);
 
+    // check content text from controller
+    expect(findDropContentText()[0].innerText).toBe('Hello value from controller');
+
     // clicking button to close the drop
     findButton()[0].click();
     expect(findDrop().length).toBe(0);
   }));
 });
-
-
-
