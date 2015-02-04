@@ -5,7 +5,7 @@ describe('Module: drop-ng, Directive: <drop>', function () {
   beforeEach(module('drop-ng'));
 
   function findDrop() {
-    return angular.element(document.body).find('.drop');
+    return angular.element(document.body).find('.drop-open');
   }
 
   function findButton() {
@@ -32,15 +32,18 @@ describe('Module: drop-ng, Directive: <drop>', function () {
     $rootScope.$apply('openOn = "click"');
     $rootScope.$apply('position = "bottom center"');
 
+
+    // checking drop doesn't exist yet
     expect(findDrop().length).toBe(0);
     expect(findButton().length).toBe(1);
+
+    // clicking button to open the drop
     findButton()[0].click();
     expect(findDrop().length).toBe(1);
+
+    // clicking button to close the drop
     findButton()[0].click();
-    
-    // need to wait for animation to complete
-    //expect(findDrop()[0].clientHeight).toEqual(0);
-    //expect(findDrop()[0].clientWidth).toEqual(0);
+    expect(findDrop().length).toBe(0);
   }));
 });
 
