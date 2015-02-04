@@ -1,6 +1,6 @@
 'use strict';
 
-describe('[unit] drop-ng: simple example', function () {
+describe('[unit] drop-ng: close action example', function () {
 
   beforeEach(module('drop-ng'));
 
@@ -16,7 +16,11 @@ describe('[unit] drop-ng: simple example', function () {
     return angular.element(document.body).find('#displayTextWithinDrop');
   }
 
-  it('should appear when parent button is clicked, display text from controller and close when parent button clicked again', inject(function ($compile, $rootScope, $timeout) {
+  function findCloseElement() {
+    return angular.element(document.body).find('#closeElement');
+  }
+
+  it('should appear when parent button is clicked and close when parent button clicked again', inject(function ($compile, $rootScope, $timeout) {
     var element = $compile(
       '<button id="button"> Click me!' +
         '<drop classes="classes" ' +
@@ -24,8 +28,12 @@ describe('[unit] drop-ng: simple example', function () {
               'constrain-to-window="constrainToWindow" ' +
               'open-on="openOn" ' +
               'position="position">' +
-          '<div id="displayTextWithinDrop">' +
-                'Hello {{ $parent.someValue }}' +
+          '<div>' +
+            '<div id="displayTextWithinDrop">Hello {{ $parent.someValue }}</div>' +
+            '<br />' +
+            '<p id="closeElement" drop-close> ' +
+              '<i>Click here to close</i> ' +
+            '</p>' +
           '</div>' +
         '</drop>' +
       '</button>')($rootScope);
@@ -50,8 +58,8 @@ describe('[unit] drop-ng: simple example', function () {
     // check content text from controller
     expect(findDropContentText()[0].innerText).toBe('Hello value from controller');
 
-    // clicking button to close the drop
-    findButton()[0].click();
+    // clicking close element to close the drop
+    findCloseElement()[0].click();
     expect(findDrop().length).toBe(0);
 
     // cleanup
