@@ -25,16 +25,16 @@
       vm.someValue = 'This is a value from my controller';
       vm.things = [];
 
-      vm.loadOnDemand = function(){
-      $timeout(function(){
-        vm.things = [{code: '1', name: 'one'},
-                        {code: '2', name: 'two'},
-                        {code: '3', name: 'three'},
-                        {code: '4', name: 'quatro'}];
-                        }, 500);
+      vm.loadOnDemand = function () {
+        $timeout(function () {
+          vm.things = [{ code: '1', name: 'one' },
+                          { code: '2', name: 'two' },
+                          { code: '3', name: 'three' },
+                          { code: '4', name: 'quatro' }];
+        }, 500);
       }
 
-      vm.doSomething = function(name){
+      vm.doSomething = function (name) {
         alert(name);
       }
     });
@@ -44,32 +44,35 @@
   <style>
     body {
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      color: #333
+      color: #333;
     }
+
     button {
-      margin-left:200px
+      margin-left: 200px;
     }
+
     .ng-hide {
       display: none !important;
     }
+
     .buttonAsLink {
-      background:none!important;
-      border:none;
-      padding:0!important;
+      background: none !important;
+      border: none;
+      padding: 0 !important;
       /*border is optional*/
-      border-bottom:1px solid #444;
+      border-bottom: 1px solid #444;
       cursor: pointer;
     }
   </style>
 </head>
-<body>
+<body ng-app="myapp">
   <h2>drop-ng example</h2>
 
-  <div ng-app="myapp">
+  <div>
     <div ng-controller="mycontroller as vm">
       <p ng-click="vm.doSomething(vm.someValue)">
         <span>
-          drop-ng provides an Angular wrapper around Drop.js. <br/><br/>
+          drop-ng provides an Angular wrapper around Drop.js. <br /><br />
           Drop.js is a Javascript and CSS library for creating dropdowns and other popups attached to elements on the page.
         </span>
       </p>
@@ -82,15 +85,18 @@
               constrain-to-window='vm.constrainToWindow'
               open-on='vm.openOn'
               position='vm.position'>
-            <div>
-                Hello !
-                <ul>
-                <li ng-repeat="thing in vm.things">
-                    <a ng-click="vm.doSomething(thing.name)">{{thing.code}} - {{thing.name}}</a>
-                </li>
-              </ul>
-            </div>
-        <drop>
+          <div>
+            Hello !
+            <ul>
+              <li ng-repeat="thing in vm.things">
+                <a class="linkForControllerItem"
+                   ng-click="vm.doSomething(thing.name)">
+                  {{thing.code}} - {{thing.name}}
+                </a>
+              </li>
+            </ul>
+          </div>
+          <drop>
       </button>
 
       <p>
@@ -99,14 +105,14 @@
         </span>
       </p>
       <p>
-        <input type="radio" name="position" ng-model="vm.position" value="top left"> Top left <br/>
-        <input type="radio" name="position" ng-model="vm.position" value="top center"> Top center <br/>
-        <input type="radio" name="position" ng-model="vm.position" value="top right"> Top right <br/>
-        <input type="radio" name="position" ng-model="vm.position" value="bottom left">  Bottom left <br/>
-        <input type="radio" name="position" ng-model="vm.position" value="bottom center"> Bottom center <br/>
-        <input type="radio" name="position" ng-model="vm.position" value="bottom right"> Bottom right <br/>
-        <input type="radio" name="position" ng-model="vm.position" value="left middle"> Left middle <br/>
-        <input type="radio" name="position" ng-model="vm.position" value="right middle"> Right middle <br/>
+        <input type="radio" name="position" ng-model="vm.position" value="top left"> Top left <br />
+        <input type="radio" name="position" ng-model="vm.position" value="top center"> Top center <br />
+        <input type="radio" name="position" ng-model="vm.position" value="top right"> Top right <br />
+        <input type="radio" name="position" ng-model="vm.position" value="bottom left">  Bottom left <br />
+        <input type="radio" name="position" ng-model="vm.position" value="bottom center"> Bottom center <br />
+        <input type="radio" name="position" ng-model="vm.position" value="bottom right"> Bottom right <br />
+        <input type="radio" name="position" ng-model="vm.position" value="left middle"> Left middle <br />
+        <input type="radio" name="position" ng-model="vm.position" value="right middle"> Right middle <br />
       </p>
     </div>
   </div>
