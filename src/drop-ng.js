@@ -33,11 +33,15 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         controller: function($scope){
             var _this = this;
             this.drop = null;
+            this.focusElement = null;
+            this.setFocusElement = function(element){
+                this.focusElement = element;
+            };
             this.close = function(){
                 if (_this.drop){
                     _this.drop.close();
                 }
-            }        
+            };       
         },
         link: {
           pre: function(scope, element, attrs, ctrl, transclude){
@@ -51,7 +55,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
             var dropContent = compiled(scope)[0];
             var initDrop = function() {
               if (ctrl.drop) {
-                ctrl.drop.destroy();
+                ctrl.drop.off('open', openHandler);
+                ctrl.drop.destroy();                
               }
               if (typeof scope.classes == 'undefined') scope.classes = 'drop-theme-arrows-bounce';
               if (typeof scope.constrainToScrollParent == 'undefined') scope.constrainToScrollParent = true;
@@ -68,12 +73,17 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
                 position: scope.position,
                 openOn: scope.openOn
               });
+              
+              ctrl.drop.on('open', openHandler);
+            }
+            
+            var openHandler = function(){
+                if (ctrl.focusElement){
+                    ctrl.focusElement[0].focus();
+                }
             }
 
             initDrop();
-
-            // clean up element
-            //element[0].innerHTML = '';
 
             scope.$watch('classes', function (newValue, oldValue) {
               if (newValue !== oldValue)
@@ -101,7 +111,10 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
             });
 
             scope.$on('$destroy', function () {
-              if (ctrl.drop) ctrl.drop.destroy();
+              if (ctrl.drop){
+                  ctrl.drop.off('open', openHandler);
+                  ctrl.drop.destroy();
+              }
               if (initDrop) initDrop.destroy();
               setTimeout(function () {
                 element.remove();
@@ -119,6 +132,15 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
                 element.on('click', function(){                
                     dropCtrl.close();
                 });
+            }
+        };
+    })
+    .directive('dropFocus', function(){
+        return {
+            require: '^drop',
+            restrict: 'A',
+            link: function(scope, element, attrs, dropCtrl){
+                dropCtrl.setFocusElement(element);
             }
         };
     });
