@@ -25,7 +25,7 @@ describe('[unit] drop-ng: defaults example', function () {
         '<drop constrain-to-scroll-parent="constrainToScrollParent" ' +
               'position="position">' +
           '<div id="displayTextWithinDrop">' +
-            'Hello {{ $parent.someValue }}' +
+            'Hello {{ someValue }}' +
           '</div>' +
         '</drop>' +
       '</button>')(scope);

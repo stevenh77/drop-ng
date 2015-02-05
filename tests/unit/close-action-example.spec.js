@@ -32,7 +32,7 @@ describe('[unit] drop-ng: close action example', function () {
               'open-on="openOn" ' +
               'position="position">' +
           '<div>' +
-            '<div id="displayTextWithinDrop">Hello {{ $parent.someValue }}</div>' +
+            '<div id="displayTextWithinDrop">Hello {{ someValue }}</div>' +
             '<br />' +
             '<p id="closeElement" drop-close> ' +
               '<i>Click here to close</i> ' +
