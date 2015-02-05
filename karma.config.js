@@ -17,7 +17,7 @@ module.exports = function(config) {
             './bower_components/jquery/dist/jquery.min.js',
             './bower_components/angular/angular.min.js',
             './bower_components/angular-mocks/angular-mocks.js',
-            './bower_components/drop/drop.js',
+            './bower_components/drop/drop.min.js',
 
             // source
             './src/drop-ng.js',
@@ -26,6 +26,7 @@ module.exports = function(config) {
             './tests/unit/*.spec.js',
 
             // css
+            './bower_components/drop/css/drop-theme-arrows-bounce.css',
             './bower_components/drop/css/drop-theme-arrows-bounce-dark.css',
     ],
 
