@@ -115,7 +115,6 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
                   ctrl.drop.off('open', openHandler);
                   ctrl.drop.destroy();
               }
-              if (initDrop) initDrop.destroy();
               setTimeout(function () {
                 element.remove();
               }, 0);

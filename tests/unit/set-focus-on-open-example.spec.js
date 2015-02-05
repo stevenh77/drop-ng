@@ -12,11 +12,12 @@ describe('[unit] drop-ng: set focus on open example', function () {
     return angular.element(document.body).find('#button');
   }
   
-  it('should appear when parent button is clicked and focusForTarget element should have focus',
-    inject(function ($compile, $rootScope) {
+  it('should appear when parent button is clicked and focusForTarget element should have focus', inject(function ($compile, $rootScope) {
+
+    var scope = $rootScope.$new();
 
     var element = $compile(
-      '<button id="button"> Click me!' +
+      '<button id="button">set focus on open' +
         '<drop classes="classes" ' +
               'constrain-to-scroll-parent="constrainToScrollParent" ' +
               'constrain-to-window="constrainToWindow" ' +
@@ -24,16 +25,16 @@ describe('[unit] drop-ng: set focus on open example', function () {
               'position="position">' +
           '<input id="focusForTarget" type="text" drop-focus ng-model="someValue"></input>' +
         '</drop>' +
-      '</button>')($rootScope);
+      '</button>')(scope);
     
     $(element).appendTo($('body'));
 
-    $rootScope.$apply('classes = "drop-theme-arrows-bounce-dark"');
-    $rootScope.$apply('constrainToScrollParent = true');
-    $rootScope.$apply('constrainToWindow = true');
-    $rootScope.$apply('openOn = "click"');
-    $rootScope.$apply('position = "bottom center"');
-    $rootScope.$apply('someValue = "value from controller"');
+    scope.$apply('classes = "drop-theme-arrows-bounce-dark"');
+    scope.$apply('constrainToScrollParent = true');
+    scope.$apply('constrainToWindow = true');
+    scope.$apply('openOn = "click"');
+    scope.$apply('position = "bottom center"');
+    scope.$apply('someValue = "value from controller"');
 
     // checking drop doesn't exist yet
     expect(findDrop().length).toBe(0);

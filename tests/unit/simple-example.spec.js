@@ -16,11 +16,12 @@ describe('[unit] drop-ng: simple example', function () {
     return angular.element(document.body).find('#displayTextWithinDrop');
   }
 
-  it('should appear when parent button is clicked, display text from controller and close when parent button clicked again',
-    inject(function ($compile, $rootScope) {
+  it('should appear when parent button is clicked, display text from controller and close when parent button clicked again', inject(function ($compile, $rootScope) {
+
+    var scope = $rootScope.$new();
 
     var element = $compile(
-      '<button id="button"> Click me!' +
+      '<button id="button">simple example' +
         '<drop classes="classes" ' +
               'constrain-to-scroll-parent="constrainToScrollParent" ' +
               'constrain-to-window="constrainToWindow" ' +
@@ -30,16 +31,16 @@ describe('[unit] drop-ng: simple example', function () {
                 'Hello {{ $parent.someValue }}' +
           '</div>' +
         '</drop>' +
-      '</button>')($rootScope);
+      '</button>')(scope);
     
     $(element).appendTo($('body'));
 
-    $rootScope.$apply('classes = "drop-theme-arrows-bounce-dark"');
-    $rootScope.$apply('constrainToScrollParent = true');
-    $rootScope.$apply('constrainToWindow = true');
-    $rootScope.$apply('openOn = "click"');
-    $rootScope.$apply('position = "bottom center"');
-    $rootScope.$apply('someValue = "value from controller"');
+    scope.$apply('classes = "drop-theme-arrows-bounce-dark"');
+    scope.$apply('constrainToScrollParent = true');
+    scope.$apply('constrainToWindow = true');
+    scope.$apply('openOn = "click"');
+    scope.$apply('position = "bottom center"');
+    scope.$apply('someValue = "value from controller"');
 
     // checking drop doesn't exist yet
     expect(findDrop().length).toBe(0);

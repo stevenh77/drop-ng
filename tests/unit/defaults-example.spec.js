@@ -16,26 +16,27 @@ describe('[unit] drop-ng: defaults example', function () {
     return angular.element(document.body).find('#displayTextWithinDrop');
   }
 
-  it('should appear when parent button is clicked, display text from controller and close when parent button clicked again',
-    inject(function ($compile, $rootScope) {
+  it('should appear when parent button is clicked, display text from controller and close when parent button clicked again', inject(function ($compile, $rootScope) {
+
+    var scope = $rootScope.$new();
 
     var element = $compile(
-      '<button id="button">Click me' +
+      '<button id="button">defaults example' +
         '<drop constrain-to-scroll-parent="constrainToScrollParent" ' +
               'position="position">' +
           '<div id="displayTextWithinDrop">' +
             'Hello {{ $parent.someValue }}' +
           '</div>' +
         '</drop>' +
-      '</button>')($rootScope);
+      '</button>')(scope);
       
     $(element).appendTo($('body'));
 
     // for some reason karma requires these two settings
-    $rootScope.$apply('constrainToScrollParent = true');
-    $rootScope.$apply('position = "bottom center"');
+    scope.$apply('constrainToScrollParent = true');
+    scope.$apply('position = "bottom center"');
 
-    $rootScope.$apply('someValue = "value from controller"');
+    scope.$apply('someValue = "value from controller"');
 
     // checking drop doesn't exist yet
     expect(findDrop().length).toBe(0);
