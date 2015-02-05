@@ -45,14 +45,14 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         },
         link: {
           pre: function(scope, element, attrs, ctrl, transclude){
-            transclude(scope.$parent, function(clone, scope) {
-              element.append(clone);
+            transclude(scope.$parent, function(clone, scope) {              
+              var dropContents = angular.element('<div class="drop-ng-contents"></div>').append(clone);
+              element.append(dropContents);
             });
           },
           post:function (scope, element, attrs, ctrl) {
-            var target = element[0].parentElement;
-            var compiled = $compile(element[0].children[0]);
-            var dropContent = compiled(scope)[0];
+            var target = element[0].parentElement;            
+            var dropContent = element[0].querySelector('.drop-ng-contents');
             var initDrop = function() {
               if (ctrl.drop) {
                 ctrl.drop.off('open', openHandler);

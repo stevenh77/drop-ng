@@ -27,7 +27,7 @@ describe('[unit] drop-ng: simple example', function () {
               'open-on="openOn" ' +
               'position="position">' +
           '<div id="displayTextWithinDrop">' +
-                'Hello {{ $parent.someValue }}' +
+                'Hello {{someValue}}' +
           '</div>' +
         '</drop>' +
       '</button>')($rootScope);
