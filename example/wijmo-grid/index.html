@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+  <!-- angular -->
+  <script src="../../bower_components/angular/angular.min.js"></script>
+
+  <!-- dropjs including tether -->
+  <script src="../../bower_components/drop/drop.min.js"></script>
+  <link href="../../bower_components/drop/css/drop-theme-arrows-bounce.css" rel="stylesheet" />
+  <link href="../../bower_components/drop/css/drop-theme-arrows-bounce-dark.css" rel="stylesheet" />
+
+  <!-- drop-ng -->
+  <script src="../../src/drop-ng.js"></script>
+
+  <!-- wijmo -->
+  <script src="wijmo.min.js"></script>
+  <script src="wijmo.grid.min.js"></script>
+  <script src="wijmo.input.min.js"></script>
+  <script src="wijmo.angular.min.js"></script>
+  
+  <link href="wijmo.min.css" rel="stylesheet" />
+
+  <!-- my application javascript-->
+  <script>
+    'use strict';
+
+    var myapp = angular.module('myapp', ['drop-ng', 'wj']);
+
+    myapp.directive('buttonDrop', function(){
+        return {
+            restrict: 'E',
+            template: '<button>Click Me <drop classes="classes" constrain-to-scroll-parent="constrainToScrollParent" constrain-to-window="constrainToWindow" open-on="openOn" position="position"><div id="displayTextWithinDrop">Hello {{ someValue }}</div></drop></button>'
+        };
+    });
+
+    myapp.controller('mycontroller', function ($scope) {
+      $scope.classes = 'drop-theme-arrows-bounce-dark';
+      $scope.constrainToScrollParent = 'true';
+      $scope.constrainToWindow = 'true';
+      $scope.openOn = 'click';
+      $scope.position = 'bottom center';
+      $scope.someValue = 'value from controller';
+
+      
+      var countries = 'US,Germany,UK,Japan,Italy,Greece'.split(','),
+      data = [];
+      for (var i = 0; i < countries.length; i++) {
+          data.push({
+              id: i,
+              country: countries[i]
+          });
+      }
+      $scope.rowData = data;
+    });
+  </script>
+
+  <!-- my application styles -->
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #333
+    }
+    .ng-hide {
+      display: none !important;
+    }
+    .drop {
+      z-index: 999;
+    }
+  </style>
+</head>
+<body ng-app="myapp">
+  <h2>drop-ng example</h2>
+
+  <div ng-controller="mycontroller">
+
+    <wj-flex-grid id="grid" items-source="rowData" control="flex" selection-mode="None">
+        <wj-flex-grid-column header="Id"
+                            binding="id"
+                            width="50"
+                            is-read-only="true">
+        </wj-flex-grid-column>
+        <wj-flex-grid-column header="Country"
+                            binding="country"
+                            width="100"
+                            is-read-only="true">
+        </wj-flex-grid-column>
+        <wj-flex-grid-column header="Docs"
+                            width="70"
+                            is-read-only="true">
+            <button-drop></button-drop>
+        </wj-flex-grid-column>
+    </wj-flex-grid>
+  </div>
+</body>
+</html>
