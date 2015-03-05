@@ -11,7 +11,7 @@
  *  protractor protractor.config.js
  */
 
-describe('[e2] drop-ng: close action example', function () {
+describe('[e2e] drop-ng: close action example', function () {
      it('should appear when parent button is clicked and close when parent button clicked again', function() {
        browser.get('http://localhost:8080/example/close-action');
 

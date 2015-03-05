@@ -11,7 +11,7 @@
  *  protractor protractor.config.js
  */
 
-describe('drop-ng: ng-repeat example', function () {
+describe('[e2e] drop-ng: ng-repeat example', function () {
   it('should appear when parent button is clicked and display 4 items from controller', function() {
     browser.get('http://localhost:8080/example/ng-repeat');
 
