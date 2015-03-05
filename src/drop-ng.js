@@ -31,17 +31,17 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           openOn: '=?'
         },
         controller: function($scope){
-            var _this = this;
-            this.drop = null;
-            this.focusElement = null;
-            this.setFocusElement = function(element){
-                this.focusElement = element;
-            };
-            this.close = function(){
-                if (_this.drop){
-                    _this.drop.close();
-                }
-            };       
+          var _this = this;
+          this.drop = null;
+          this.focusElement = null;
+          this.setFocusElement = function(element){
+            this.focusElement = element;
+          };
+          this.close = function(){
+            if (_this.drop){
+              _this.drop.close();
+            }
+          };       
         },
         link: {
           pre: function(scope, element, attrs, ctrl, transclude){
@@ -73,6 +73,18 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
                 position: scope.position,
                 openOn: scope.openOn
               });
+
+              if (scope.openOn === "contextmenu") {
+                angular.element(target).bind('contextmenu', function (e) {
+                  e.preventDefault();
+                  ctrl.drop.open();
+                });
+
+                angular.element(target).bind('click', function (e) {
+                  e.preventDefault();
+                  ctrl.drop.close();
+                });
+              }
               
               ctrl.drop.on('open', openHandler);
             }
@@ -121,6 +133,13 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
             });
           }
         }
+      }
+    })
+    .directive('hyperlink', function(){
+      return {
+        transclude: true,
+        replace: true,
+        template: '<a ng-transclude></a>',
       }
     })
     .directive('dropClose', function(){
