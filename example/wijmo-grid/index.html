@@ -26,13 +26,6 @@
 
     var myapp = angular.module('myapp', ['drop-ng', 'wj']);
 
-    myapp.directive('buttonDrop', function(){
-        return {
-            restrict: 'E',
-            template: '<button>Click Me <drop classes="classes" constrain-to-scroll-parent="constrainToScrollParent" constrain-to-window="constrainToWindow" open-on="openOn" position="position"><div id="displayTextWithinDrop">Hello {{ someValue }}</div></drop></button>'
-        };
-    });
-
     myapp.controller('mycontroller', function ($scope) {
       $scope.classes = 'drop-theme-arrows-bounce-dark';
       $scope.constrainToScrollParent = 'true';
@@ -41,7 +34,6 @@
       $scope.position = 'bottom center';
       $scope.someValue = 'value from controller';
 
-      
       var countries = 'US,Germany,UK,Japan,Italy,Greece'.split(','),
       data = [];
       for (var i = 0; i < countries.length; i++) {
@@ -87,7 +79,13 @@
         <wj-flex-grid-column header="Docs"
                             width="70"
                             is-read-only="true">
-            <button-drop></button-drop>
+			<button>Click Me 
+				<drop classes="classes" constrain-to-scroll-parent="constrainToScrollParent" constrain-to-window="constrainToWindow" open-on="openOn" position="position">
+					<div id="displayTextWithinDrop">
+					Hello {{ someValue }}
+					</div>
+				</drop>
+			</button>
         </wj-flex-grid-column>
     </wj-flex-grid>
   </div>
