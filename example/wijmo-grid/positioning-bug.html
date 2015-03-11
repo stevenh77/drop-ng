@@ -33,14 +33,13 @@
       $scope.openOn = 'click';
       $scope.position = 'bottom center';
       $scope.someValue = 'value from controller';
-
       
       var countries = 'US,Germany,UK,Japan,Italy,Greece'.split(','),
       data = [];
-      for (var i = 0; i < 40; i++) {
+      for (var i = 0; i < countries.length; i++) {
           data.push({
               id: i,
-              country: countries[0]
+              country: countries[i]
           });
       }
       $scope.rowData = data;
@@ -59,21 +58,10 @@
     .drop {
       z-index: 999;
     }
-    
     .grid-container {
-        position: absolute;
-        bottom: 20px;
-        left: 10px;
-        right: 10px;
-        top: 75px;
+        position: absolute;  /* relative works fine */
     }
 
-    
-    .grid-fill{
-        position: absolute;
-        height: 100%;
-        width: 100%;
-    }
   </style>
 </head>
 <body ng-app="myapp">
@@ -81,10 +69,9 @@
 
   <div ng-controller="mycontroller">
 
-	<!-- FIX:  <div style="height:auto; width:200px">-->
   	<div class="grid-container">
 
-  		<wj-flex-grid id="grid" items-source="rowData" class="grid-fill" control="flex" selection-mode="None"> 
+  		<wj-flex-grid id="grid" items-source="rowData" control="flex" selection-mode="None"> 
   			<wj-flex-grid-column header="Id"
 								   binding="id"
 								   width="50"
