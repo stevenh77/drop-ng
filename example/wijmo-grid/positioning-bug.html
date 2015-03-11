@@ -34,6 +34,7 @@
       $scope.position = 'bottom center';
       $scope.someValue = 'value from controller';
 
+      
       var countries = 'US,Germany,UK,Japan,Italy,Greece'.split(','),
       data = [];
       for (var i = 0; i < 40; i++) {
@@ -58,6 +59,21 @@
     .drop {
       z-index: 999;
     }
+    
+    .grid-container {
+        position: absolute;
+        bottom: 20px;
+        left: 10px;
+        right: 10px;
+        top: 75px;
+    }
+
+    
+    .grid-fill{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
   </style>
 </head>
 <body ng-app="myapp">
@@ -66,9 +82,9 @@
   <div ng-controller="mycontroller">
 
 	<!-- FIX:  <div style="height:auto; width:200px">-->
-  	<div style="height:200px; width:200px">
+  	<div class="grid-container">
 
-  		<wj-flex-grid id="grid" items-source="rowData" control="flex" selection-mode="None">
+  		<wj-flex-grid id="grid" items-source="rowData" class="grid-fill" control="flex" selection-mode="None"> 
   			<wj-flex-grid-column header="Id"
 								   binding="id"
 								   width="50"
@@ -86,7 +102,7 @@
   					Click Me
   					<drop classes="classes" constrain-to-scroll-parent="constrainToScrollParent" constrain-to-window="constrainToWindow" open-on="openOn" position="position">
   						<div id="displayTextWithinDrop">
-  							Hello {{ someValue }}
+  							Hello {{ someValue }}                       
   						</div>
   					</drop>
   				</button>
