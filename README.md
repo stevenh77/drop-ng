@@ -18,7 +18,7 @@ Install [Node.js](http://nodejs.org)
 
 Install these NPM packages globally:
 
-`npm install -g bower http-server`
+`npm install -g bower http-server karma karma-cli`
 
 ## Installing Packages
 - Open terminal at root folder

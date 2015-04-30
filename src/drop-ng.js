@@ -5,7 +5,8 @@
 //          constrain-to-scroll-parent='true'
 //          constrain-to-window='true'
 //          open-on='click'
-//          position='bottom left'>
+//          position='bottom left'
+//			callback-on-open='someFunction()'>
 //      Rich HTML content here
 //      <span drop-close>Click to close</span>
 //    </drop>
@@ -28,7 +29,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           constrainToScrollParent: '=?',
           constrainToWindow: '=?',
           position: '=?',
-          openOn: '=?'
+          openOn: '=?',
+          callbackOnOpen: '&'
         },
         controller: function($scope){
           var _this = this;
@@ -93,6 +95,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
                 if (ctrl.focusElement){
                     ctrl.focusElement[0].focus();
                 }
+                scope.callbackOnOpen();
             }
 
             initDrop();
