@@ -11,6 +11,9 @@
 //      <span drop-close>Click to close</span>
 //    </drop>
 // </button>
+//
+// Notes:
+//  dropClosedEvent is broadcast on rootscope when the drop is closed.
 if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.exports === exports){
   module.exports = 'drop-ng';
 }
@@ -19,7 +22,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 
   angular
     .module('drop-ng', [])
-    .directive('drop', function ($compile) {
+    .directive('drop', function ($compile, $rootScope) {
       return {
         restrict: 'E',
         replace: true,
@@ -32,7 +35,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           openOn: '=?',
           callbackOnOpen: '&'
         },
-        controller: function($scope){
+        controller: function(){
           var _this = this;
           this.drop = null;
           this.focusElement = null;
@@ -89,6 +92,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
               }
               
               ctrl.drop.on('open', openHandler);
+              ctrl.drop.on('close', closeHandler);
             }
             
             var openHandler = function(){
@@ -96,6 +100,12 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
                     ctrl.focusElement[0].focus();
                 }
                 scope.callbackOnOpen();
+            }
+            
+            var closeHandler = function(){
+              // note: emit notifies all scope listeners whereas 
+              //  broadcast notifies all scope AND rootscope listeners 
+              $rootScope.$broadcast('dropClosedEvent', null);
             }
 
             initDrop();
@@ -128,6 +138,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
             scope.$on('$destroy', function () {
               if (ctrl.drop){
                   ctrl.drop.off('open', openHandler);
+                  ctrl.drop.off('close', closeHandler);
                   ctrl.drop.destroy();
               }
               setTimeout(function () {
