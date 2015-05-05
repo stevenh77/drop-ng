@@ -1,6 +1,6 @@
 {
   "name": "drop-ng",
-  "version": "0.0.3",
+  "version": "0.0.31",
   "description": "An AngularJS wrapper module for Drop.js",
   "authors": [
     "stevenh77 <stevenhollidge@hotmail.com>"

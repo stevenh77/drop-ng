@@ -134,6 +134,10 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
               if (newValue !== oldValue)
                 initDrop();
             });
+            
+            scope.$on('closeDrop', function(){
+                ctrl.close();
+            });
 
             scope.$on('$destroy', function () {
               if (ctrl.drop){
