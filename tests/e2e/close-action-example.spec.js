@@ -23,6 +23,9 @@ describe('[e2e] drop-ng: close action example', function () {
 
        // check drop does exist
        expect(element(by.css('.drop-open')).isPresent()).toBe(true);
+       
+       //Annoying but this fails if we don't put a sleep here first. Protractor doesn't seem to automatically wait for the drop animation to complete.
+       browser.sleep(300);       
 
        element(by.id('closeElement')).click();
        

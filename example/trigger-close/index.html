@@ -19,15 +19,17 @@
     var myapp = angular.module('myapp', ['drop-ng']);
 
     myapp.controller('mycontroller', function ($scope, $rootScope) {
-      $scope.eventsList = [];
+      $scope.isChecked = false;
+      $scope.highlightCheckBox = false;
+      $scope.applyChanges = function(){
+        console.log("in it");
+        if ($scope.isChecked) {
+          $scope.$broadcast("closeDrop");
+        } else {
+          $scope.highlightCheckBox = true;
+        }
+      };
       
-      var dropClosedEventListener = $rootScope.$on('dropClosedEvent', function (event, data) {
-        var eventTime = new Date().toISOString();
-        $scope.eventsList.push(eventTime + " - dropClosedEvent fired");
-        $scope.$apply();
-  	  });
-
-  	  $scope.$on('$destroy', dropClosedEventListener);
     });
   </script>
 
@@ -38,7 +40,7 @@
       color: #333;
     }
 
-    button {
+    button.launcher {
       margin-left: 200px;
     }
 
@@ -48,6 +50,11 @@
 
     .leave-space-for-drop {
       margin-top: 100px;
+    }
+    
+    .highlight{
+      color: darkred;
+      font-weight: 700;
     }
   </style>
 </head>
@@ -62,14 +69,17 @@
           Drop.js is a Javascript and CSS library for creating dropdowns and other popups attached to elements on the page.
         </span>
       </p>
-      <button>
+      <button class="launcher">
         Click me
 
         <drop  position="'bottom center'">
 
           <div>
-            Just another drop. <br/>
-            Close event is logged below          
+            Check the box and click Apply Changes to close? <br/>
+            <input id="confirmCheckBox" type="checkbox" ng-model="isChecked">I Agree <span class="highlight" ng-if="highlightCheckBox">*</span></input>
+              <br/>
+            <input id="applyChangesButton" type="submit" ng-click="applyChanges()" value="Apply Changes"></button>
+            
           </div>
 
         </drop>
