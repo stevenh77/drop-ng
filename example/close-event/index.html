@@ -19,15 +19,12 @@
     var myapp = angular.module('myapp', ['drop-ng']);
 
     myapp.controller('mycontroller', function ($scope, $rootScope) {
-      $scope.classes = 'drop-theme-arrows-bounce-dark';
-      $scope.constrainToScrollParent = 'true';
-      $scope.constrainToWindow = 'true';
-      $scope.openOn = 'click';
-      $scope.position = 'bottom center';
-      $scope.someValue = 'value from controller';
-
+      $scope.eventsList = [];
+      
       var dropClosedEventListener = $rootScope.$on('dropClosedEvent', function (event, data) {
-        console.log("dropClosedEvent fired");
+        var eventTime = new Date().toISOString();
+        $scope.eventsList.push(eventTime + " - dropClosedEvent fired");
+        $scope.$apply();
   	  });
 
   	  $scope.$on('$destroy', dropClosedEventListener);
@@ -65,45 +62,30 @@
           Drop.js is a Javascript and CSS library for creating dropdowns and other popups attached to elements on the page.
         </span>
       </p>
-      <p>
-        <span>The following text will appear within the drop:</span>
-        <input type="text" ng-model="someValue" />
-      </p>
       <button>
         Click me
 
-        <drop classes='classes'
-              constrain-to-scroll-parent='constrainToScrollParent'
-              constrain-to-window='constrainToWindow'
-              open-on='openOn'
-              position='position'>
+        <drop  position="'bottom center'">
 
           <div>
-            Hello {{ someValue }}
-            <br />
-            <p id="closeElement" drop-close>
-              <i>Click here to close</i>
-            </p>
+            Just another drop. <br/>
+            Close event is logged below          
           </div>
 
         </drop>
       </button>
 
       <p class="leave-space-for-drop">
-        <span>
-          Use the 'position' attribute to define the position of the popover:
-        </span>
+        Events:  
       </p>
-      <p>
-        <input type="radio" name="position" ng-model="position" value="top left"> Top left <br />
-        <input type="radio" name="position" ng-model="position" value="top center"> Top center <br />
-        <input type="radio" name="position" ng-model="position" value="top right"> Top right <br />
-        <input type="radio" name="position" ng-model="position" value="bottom left">  Bottom left <br />
-        <input type="radio" name="position" ng-model="position" value="bottom center"> Bottom center <br />
-        <input type="radio" name="position" ng-model="position" value="bottom right"> Bottom right <br />
-        <input type="radio" name="position" ng-model="position" value="left middle"> Left middle <br />
-        <input type="radio" name="position" ng-model="position" value="right middle"> Right middle <br />
-      </p>
+      
+      <div id="eventslog">
+        <span ng-repeat="e in eventsList track by $index">{{e}}<br/></span>
+      </div>
+<!--      <textarea ng-model="eventsList" ng-list="&#10;"></textarea>-->
+<!--      <ul>
+        <li ng-repeat="e in eventsList">{{e}}</li>
+      </ul>       -->
     </div>
   </div>
 </body>
