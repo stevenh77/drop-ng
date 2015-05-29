@@ -25,15 +25,13 @@ describe('[e2e] drop-ng: close event example', function () {
        expect(element(by.css('.drop-open')).isPresent()).toBe(true);
 
        //now close it
-       element(by.css('.drop-target')).click();
+       // *** NOTE ***** As protractor struggles to click the button when the drop is open,
+       // the workaround is press enter as the button currently has focus
+       element.all(by.css('.drop-target')).first().sendKeys(protractor.Key.ENTER);
        
        // check drop doesn't exist
        expect(element(by.css('.drop-open')).isPresent()).toBe(false);
        
        expect(element(by.id("eventslog")).getText()).toContain("dropClosedEvent fired");
-       browser.manage().logs().get('browser').then(function(browserLog) {
-         // this test passes when run manually in the browser.  fix protractor code at later date
-         //expect(browserLog.message).toBe('dropClosedEvent fired');
-       });
      });
  });
