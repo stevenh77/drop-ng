@@ -103,8 +103,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
             }
             
             var closeHandler = function(){
-              // note: emit notifies all scope listeners whereas 
-              //  broadcast notifies all scope AND rootscope listeners 
+              // note: emit notifies all rootscope listeners only whereas 
+              //  broadcast notifies all rootscope listeners AND scope listeners
               $rootScope.$broadcast('dropClosedEvent', null);
             }
 
