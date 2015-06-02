@@ -6,7 +6,8 @@
 //          constrain-to-window='true'
 //          open-on='click'
 //          position='bottom left'
-//			callback-on-open='someFunction()'>
+//			    callback-on-open='someFunction()'
+//          tetherOptions: '{offset: '-50px 0'}'>
 //      Rich HTML content here
 //      <span drop-close>Click to close</span>
 //    </drop>
@@ -33,7 +34,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           constrainToWindow: '=?',
           position: '=?',
           openOn: '=?',
-          callbackOnOpen: '&'
+          callbackOnOpen: '&',
+          tetherOptions: '=?'
         },
         controller: function(){
           var _this = this;
@@ -68,7 +70,10 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
               if (typeof scope.constrainToWindow == 'undefined') scope.constrainToWindow = true;
               if (typeof scope.position == 'undefined') scope.position = 'top center';
               if (typeof scope.openOn == 'undefined') scope.openOn = 'click';
-                
+              
+              // Apply defaults for both null and undefined.  Note: false is a valid value for tetherOptions.
+              if (typeof scope.tetherOptions === 'undefined' || scope.tetherOptions === null) scope.tetherOptions = {};
+ 
               ctrl.drop = new Drop({
                 target: target,
                 content: dropContent,
@@ -76,7 +81,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
                 constrainToScrollParent: scope.constrainToScrollParent,
                 constrainToWindow: scope.constrainToWindow,
                 position: scope.position,
-                openOn: scope.openOn
+                openOn: scope.openOn,                
+                tetherOptions: scope.tetherOptions
               });
 
               if (scope.openOn === "contextmenu") {
@@ -134,6 +140,11 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
               if (newValue !== oldValue)
                 initDrop();
             });
+            
+            scope.$watch('tetherOptions', function(newValue, oldValue) {
+              if (newValue !== oldValue)
+                initDrop();
+            }, true); // watch deeply for changes to any option.
             
             scope.$on('closeDrop', function(){
                 ctrl.close();
