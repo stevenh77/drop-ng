@@ -23,7 +23,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 
   angular
     .module('drop-ng', [])
-    .directive('drop',['$compile', '$rootScope' function ($compile, $rootScope) {
+    .directive('drop',['$compile', '$rootScope', function ($compile, $rootScope) {
       return {
         restrict: 'E',
         replace: true,
