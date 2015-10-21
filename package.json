@@ -13,9 +13,7 @@
     "type": "git",
     "url": "https://github.com/stevenh77/drop-ng"
   },
-  "main": {
-    "src/drop-ng.js"
-  },
+  "main": "src/drop-ng.js",
   "author": "Steven Hollidge",
   "license": "MIT",
   "bugs": {
