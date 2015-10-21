@@ -34,6 +34,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           constrainToWindow: '=?',
           position: '=?',
           openOn: '=?',
+          dropInstance: '=?',
           callbackOnOpen: '&',
           tetherOptions: '=?'
         },
@@ -48,32 +49,32 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
             if (_this.drop){
               _this.drop.close();
             }
-          };       
+          };
         },
         link: {
           pre: function(scope, element, attrs, ctrl, transclude){
-            transclude(scope.$parent, function(clone, scope) {              
+            transclude(scope.$parent, function(clone, scope) {
               var dropContents = angular.element('<div class="drop-ng-contents"></div>').append(clone);
               element.append(dropContents);
             });
           },
           post:function (scope, element, attrs, ctrl) {
-            var target = element[0].parentElement;            
+            var target = element[0].parentElement;
             var dropContent = element[0].querySelector('.drop-ng-contents');
             var initDrop = function() {
               if (ctrl.drop) {
                 ctrl.drop.off('open', openHandler);
-                ctrl.drop.destroy();                
+                ctrl.drop.destroy();
               }
               if (typeof scope.classes == 'undefined') scope.classes = 'drop-theme-arrows-bounce';
               if (typeof scope.constrainToScrollParent == 'undefined') scope.constrainToScrollParent = true;
               if (typeof scope.constrainToWindow == 'undefined') scope.constrainToWindow = true;
               if (typeof scope.position == 'undefined') scope.position = 'top center';
               if (typeof scope.openOn == 'undefined') scope.openOn = 'click';
-              
+
               // Apply defaults for both null and undefined.  Note: false is a valid value for tetherOptions.
               if (typeof scope.tetherOptions === 'undefined' || scope.tetherOptions === null) scope.tetherOptions = {};
- 
+
               ctrl.drop = new Drop({
                 target: target,
                 content: dropContent,
@@ -81,9 +82,11 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
                 constrainToScrollParent: scope.constrainToScrollParent,
                 constrainToWindow: scope.constrainToWindow,
                 position: scope.position,
-                openOn: scope.openOn,                
+                openOn: scope.openOn,
                 tetherOptions: scope.tetherOptions
               });
+
+              scope.dropInstance = ctrl.drop; // expose drop instance
 
               if (scope.openOn === "contextmenu") {
                 angular.element(target).bind('contextmenu', function (e) {
@@ -96,20 +99,20 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
                   ctrl.drop.close();
                 });
               }
-              
+
               ctrl.drop.on('open', openHandler);
               ctrl.drop.on('close', closeHandler);
             }
-            
+
             var openHandler = function(){
                 if (ctrl.focusElement){
                     ctrl.focusElement[0].focus();
                 }
                 scope.callbackOnOpen();
             }
-            
+
             var closeHandler = function(){
-              // note: emit notifies all rootscope listeners only whereas 
+              // note: emit notifies all rootscope listeners only whereas
               //  broadcast notifies all rootscope listeners AND scope listeners
               $rootScope.$broadcast('dropClosedEvent', null);
             }
@@ -140,12 +143,12 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
               if (newValue !== oldValue)
                 initDrop();
             });
-            
+
             scope.$watch('tetherOptions', function(newValue, oldValue) {
               if (newValue !== oldValue)
                 initDrop();
             }, true); // watch deeply for changes to any option.
-            
+
             scope.$on('closeDrop', function(){
                 ctrl.close();
             });
@@ -176,7 +179,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
             require: '^drop',
             restrict: 'A',
             link: function(scope, element, attrs, dropCtrl){
-                element.on('click', function(){                
+                element.on('click', function(){
                     dropCtrl.close();
                 });
             }
