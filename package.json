@@ -13,13 +13,14 @@
     "type": "git",
     "url": "https://github.com/stevenh77/drop-ng"
   },
+  "main": "src/drop-ng.js",
   "author": "Steven Hollidge",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/stevenh77/drop-ng/issues"
   },
   "homepage": "https://github.com/stevenh77/drop-ng",
-  "dependencies": {
+  "devDependencies": {
     "jasmine-core": "^2.1.3",
     "karma": "^0.12.31",
     "karma-chrome-launcher": "^0.1.7",
