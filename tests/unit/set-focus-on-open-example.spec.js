@@ -12,7 +12,7 @@ describe('[unit] drop-ng: set focus on open example', function () {
     return angular.element(document.body).find('#button');
   }
   
-  it('should appear when parent button is clicked and focusForTarget element should have focus', inject(function ($compile, $rootScope) {
+  it('should appear when parent button is clicked and focusForTarget element should have focus', inject(function ($compile, $rootScope, $timeout) {
 
     var scope = $rootScope.$new();
 
@@ -43,7 +43,8 @@ describe('[unit] drop-ng: set focus on open example', function () {
     // clicking button to open the drop
     findButton()[0].click();
     expect(findDrop().length).toBe(1);
-
+    
+    $timeout.flush();
     // check focus has been correctly set
     expect(document.activeElement.id).toEqual('focusForTarget');
 
