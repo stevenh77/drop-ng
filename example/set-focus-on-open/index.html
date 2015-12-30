@@ -77,6 +77,25 @@
 
         </drop>
       </button>
+      <br/>
+      <br/>
+            <button>
+        Click me
+
+        <drop classes='classes'
+              constrain-to-scroll-parent='constrainToScrollParent'
+              constrain-to-window='constrainToWindow'
+              open-on='openOn'
+              position='position'>
+
+            <div>
+                You can start typing after a short delay
+                <br/>
+                <input id="focusForTargetDelay" type="text" drop-focus="1000" ng-model="someValue"/>
+            </div>
+
+        </drop>
+      </button>
 
       <p class="leave-space-for-drop">
         <span>

@@ -23,7 +23,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 
   angular
     .module('drop-ng', [])
-    .directive('drop',['$compile', '$rootScope', function ($compile, $rootScope) {
+    .directive('drop',['$compile', '$rootScope', '$timeout', function ($compile, $rootScope, $timeout) {
       return {
         restrict: 'E',
         replace: true,
@@ -42,8 +42,11 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           var _this = this;
           this.drop = null;
           this.focusElement = null;
-          this.setFocusElement = function(element){
+          this.focusDelay;
+          
+          this.setFocusElement = function(element, delay){
             this.focusElement = element;
+            this.focusDelay = delay;
           };
           this.close = function(){
             if (_this.drop){
@@ -106,7 +109,9 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 
             var openHandler = function(){
                 if (ctrl.focusElement){
-                    ctrl.focusElement[0].focus();
+                    $timeout( function() {
+                        ctrl.focusElement[0].focus();
+                    }, ctrl.focusDelay);
                 }
                 scope.callbackOnOpen();
             }
@@ -189,8 +194,16 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         return {
             require: '^drop',
             restrict: 'A',
+            scope: {
+                dropFocus: '=?'
+            },
             link: function(scope, element, attrs, dropCtrl){
-                dropCtrl.setFocusElement(element);
+                var focusDelay = 150;
+                if (scope.dropFocus !== undefined){
+                    focusDelay = scope.dropFocus;
+                }
+                console.log(focusDelay);
+                dropCtrl.setFocusElement(element, focusDelay);
             }
         };
     });
