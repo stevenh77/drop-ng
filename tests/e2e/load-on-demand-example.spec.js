@@ -46,8 +46,8 @@ describe('[e2e] drop-ng: load on demand example', function () {
     });
 
     // check the text in the alert then close it
-//    var alertDialog = browser.switchTo().alert();
-//    expect(alertDialog.getText()).toBe("three");
-//    alertDialog.dismiss();
+    var alertDialog = browser.switchTo().alert();
+    expect(alertDialog.getText()).toBe("three");
+    alertDialog.dismiss();
   });
 });
