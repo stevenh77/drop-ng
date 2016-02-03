@@ -5,7 +5,7 @@
   <script src="../../bower_components/angular/angular.min.js"></script>
 
   <!-- dropjs including tether -->
-  <script src="../../bower_components/tether/tether.min.js"></script>
+  <script src="../../bower_components/tether/dist/js/tether.min.js"></script>
   <script src="../../bower_components/tether-drop/dist/js/drop.min.js"></script>
   <link href="../../bower_components/tether-drop/dist/css/drop-theme-arrows-bounce.css" rel="stylesheet" />
   <link href="../../bower_components/tether-drop/dist/css/drop-theme-arrows-bounce-dark.css" rel="stylesheet" />
@@ -30,7 +30,7 @@
           $scope.highlightCheckBox = true;
         }
       };
-      
+
     });
   </script>
 
@@ -52,7 +52,7 @@
     .leave-space-for-drop {
       margin-top: 100px;
     }
-    
+
     .highlight{
       color: darkred;
       font-weight: 700;
@@ -80,16 +80,16 @@
             <input id="confirmCheckBox" type="checkbox" ng-model="isChecked">I Agree <span class="highlight" ng-if="highlightCheckBox">*</span></input>
               <br/>
             <input id="applyChangesButton" type="submit" ng-click="applyChanges()" value="Apply Changes"></button>
-            
+
           </div>
 
         </drop>
       </button>
 
       <p class="leave-space-for-drop">
-        Events:  
+        Events:
       </p>
-      
+
       <div id="eventslog">
         <span ng-repeat="e in eventsList track by $index">{{e}}<br/></span>
       </div>

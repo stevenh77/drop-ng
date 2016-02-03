@@ -13,7 +13,7 @@
 
 describe('[e2e] drop-ng: callback on open example', function () {
      it('should appear when parent button is clicked and console.log should have text: callback executed successfully', function() {
-       browser.get('http://localhost:8080/example/callback-on-open');
+       browser.get('/example/callback-on-open');
 
        // check drop doesn't exist
        expect(element(by.css('.drop-open')).isPresent()).toBe(false);

@@ -20,12 +20,18 @@
     var myapp = angular.module('myapp', ['drop-ng']);
 
     myapp.controller('mycontroller', function ($scope) {
+      $scope.beforeCloseCount = 0;
       $scope.classes = 'drop-theme-arrows-bounce-dark';
       $scope.constrainToScrollParent = 'true';
       $scope.constrainToWindow = 'true';
       $scope.openOn = 'click';
       $scope.position = 'bottom center';
       $scope.someValue = 'value from controller';
+      $scope.beforeClose = function() {
+        $scope.beforeCloseCount++;
+        $scope.$apply();
+        return true;
+      }
     });
   </script>
 
@@ -64,6 +70,11 @@
         <span>The following text will appear within the drop:</span>
         <input type="text" ng-model="someValue" />
       </p>
+
+      <p>
+        Before close calls: <span id="nbBeforeCloseCalls">{{ beforeCloseCount }}</span>
+      </p>
+
       <button>
         Click me
 
@@ -71,7 +82,8 @@
               constrain-to-scroll-parent='constrainToScrollParent'
               constrain-to-window='constrainToWindow'
               open-on='openOn'
-              position='position'>
+              position='position'
+              before-close='beforeClose()'>
 
           <div>
             Hello {{ someValue }}

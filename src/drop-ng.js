@@ -36,14 +36,15 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           openOn: '=?',
           dropInstance: '=?',
           callbackOnOpen: '&',
-          tetherOptions: '=?'
+          tetherOptions: '=?',
+          beforeClose: '&'
         },
         controller: function(){
           var _this = this;
           this.drop = null;
           this.focusElement = null;
           this.focusDelay;
-          
+
           this.setFocusElement = function(element, delay){
             this.focusElement = element;
             this.focusDelay = delay;
@@ -78,7 +79,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
               // Apply defaults for both null and undefined.  Note: false is a valid value for tetherOptions.
               if (typeof scope.tetherOptions === 'undefined' || scope.tetherOptions === null) scope.tetherOptions = {};
 
-              ctrl.drop = new Drop({
+              var options = {
                 target: target,
                 content: dropContent,
                 classes: scope.classes,
@@ -87,7 +88,11 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
                 position: scope.position,
                 openOn: scope.openOn,
                 tetherOptions: scope.tetherOptions
-              });
+              };
+
+              if (typeof scope.beforeClose == 'function') options.beforeClose = scope.beforeClose;
+
+              ctrl.drop = new Drop(options);
 
               scope.dropInstance = ctrl.drop; // expose drop instance
 
