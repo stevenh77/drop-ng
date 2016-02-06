@@ -13,7 +13,7 @@
 
 describe('[e2e] drop-ng: set focus on open example', function () {
      it('should appear when parent button is clicked and focusForTarget element should have focus', function() {
-       browser.get('http://localhost:8080/example/set-focus-on-open');
+       browser.get('/example/set-focus-on-open');
 
        // check drop doesn't exist
        expect(element(by.css('.drop-open')).isPresent()).toBe(false);

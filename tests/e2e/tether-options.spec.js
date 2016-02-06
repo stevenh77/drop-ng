@@ -14,7 +14,7 @@
 describe('[e2e] drop-ng: tether options', function () {
     it('should pass tether options through to the drop instance', function () {
 
-        browser.get('http://localhost:8080/example/tether-options');
+        browser.get('/example/tether-options');
 
         // There's no way I can see to test tether options other than by changing them
         // and seeing that effects of those changes on the drop itself.

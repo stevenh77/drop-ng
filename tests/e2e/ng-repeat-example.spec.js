@@ -13,7 +13,7 @@
 
 describe('[e2e] drop-ng: ng-repeat example', function () {
   it('should appear when parent button is clicked and display 4 items from controller', function() {
-    browser.get('http://localhost:8080/example/ng-repeat');
+    browser.get('/example/ng-repeat');
 
     // check drop doesn't exist
     expect(element(by.css('.drop-open')).isPresent()).toBe(false);

@@ -13,7 +13,7 @@
 
 describe('[e2e] drop-ng: simple example', function () {
      it('should appear when parent button is clicked, display text from controller and close when parent button clicked again', function() {
-       browser.get('http://localhost:8080/example/simple');
+       browser.get('/example/simple');
 
        // check drop doesn't exist
        expect(element(by.css('.drop-open')).isPresent()).toBe(false);

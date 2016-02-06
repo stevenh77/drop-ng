@@ -11,9 +11,9 @@
  *  protractor protractor.config.js
  */
 
-describe('[e2e] drop-ng: trigger close example', function () {
-     it('should appear when clicked and close when checkbox is checked and apply changes is clicked ', function() {
-       browser.get('/example/trigger-close');
+describe('[e2e] drop-ng: before close example', function () {
+     it('should show the number of before close calls', function() {
+       browser.get('/example/before-close');
 
        // check drop doesn't exist
        expect(element(by.css('.drop-open')).isPresent()).toBe(false);
@@ -24,22 +24,15 @@ describe('[e2e] drop-ng: trigger close example', function () {
        // check drop does exist
        expect(element(by.css('.drop-open')).isPresent()).toBe(true);
 
-       //sigh...waiting required for animation
+       //Annoying but this fails if we don't put a sleep here first. Protractor doesn't seem to automatically wait for the drop animation to complete.
        browser.sleep(300);
 
-       //now try closing it by clicking the apply changes button
-       element(by.id('applyChangesButton')).click();
+       element(by.id('closeElement')).click();
 
-       // it should stay open
-       expect(element(by.css('.drop-open')).isPresent()).toBe(true);
-
-       //Now check the confirmation box
-       element(by.id("confirmCheckBox")).click();
-
-       //close it again
-       element(by.id('applyChangesButton')).click();
-
-       // check that it closed
+       // check drop doesn't exist
        expect(element(by.css('.drop-open')).isPresent()).toBe(false);
+
+       // check the number of before close to be one
+       expect(element(by.id('nbBeforeCloseCalls')).getText()).toEqual("1");
      });
  });

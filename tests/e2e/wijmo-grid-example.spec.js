@@ -13,11 +13,11 @@
 
 describe('[e2e] drop-ng: wijmo grid example', function () {
      it('should appear when parent button is clicked, display text from controller and close when parent button clicked again', function() {
-       browser.get('http://localhost:8080/example/wijmo-grid');
+       browser.get('/example/wijmo-grid');
 
        // check drop doesn't exist
        expect(element(by.css('.drop-open')).isPresent()).toBe(false);
-         
+
        // TODO: ADD TESTS FOR BUTTONS IN GRID
 
        // click the parent button

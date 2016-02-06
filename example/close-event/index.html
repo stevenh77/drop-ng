@@ -5,7 +5,7 @@
   <script src="../../bower_components/angular/angular.min.js"></script>
 
   <!-- dropjs including tether -->
-  <script src="../../bower_components/tether/tether.min.js"></script>
+  <script src="../../bower_components/tether/dist/js/tether.min.js"></script>
   <script src="../../bower_components/tether-drop/dist/js/drop.min.js"></script>
   <link href="../../bower_components/tether-drop/dist/css/drop-theme-arrows-bounce.css" rel="stylesheet" />
   <link href="../../bower_components/tether-drop/dist/css/drop-theme-arrows-bounce-dark.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
 
     myapp.controller('mycontroller', function ($scope, $rootScope) {
       $scope.eventsList = [];
-      
+
       var dropClosedEventListener = $rootScope.$on('dropClosedEvent', function (event, data) {
         var eventTime = new Date().toISOString();
         $scope.eventsList.push(eventTime + " - dropClosedEvent fired");
@@ -70,16 +70,16 @@
 
           <div>
             Just another drop. <br/>
-            Close event is logged below          
+            Close event is logged below
           </div>
 
         </drop>
       </button>
 
       <p class="leave-space-for-drop">
-        Events:  
+        Events:
       </p>
-      
+
       <div id="eventslog">
         <span ng-repeat="e in eventsList track by $index">{{e}}<br/></span>
       </div>

@@ -13,7 +13,7 @@
 
 describe('[e2e] drop-ng: load on demand example', function () {
   it('should appear when parent button is clicked and display 4 items from controller', function() {
-    browser.get('http://localhost:8080/example/load-on-demand');
+    browser.get('/example/load-on-demand');
 
     // check drop doesn't exist
     expect(element(by.css('.drop-open')).isPresent()).toBe(false);
@@ -29,7 +29,7 @@ describe('[e2e] drop-ng: load on demand example', function () {
   });
 
   it('should appear when parent button is clicked and display an alert with controller text when a link is clicked', function () {
-    browser.get('http://localhost:8080/example/load-on-demand');
+    browser.get('/example/load-on-demand');
 
     // check drop doesn't exist
     expect(element(by.css('.drop-open')).isPresent()).toBe(false);
