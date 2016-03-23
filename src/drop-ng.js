@@ -119,6 +119,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
                     }, ctrl.focusDelay);
                 }
                 scope.callbackOnOpen();
+				scope.$apply();
             }
 
             var closeHandler = function(){
