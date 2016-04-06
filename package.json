@@ -1,6 +1,6 @@
 {
   "name": "drop-ng",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "An AngularJS wrapper module for Drop.js",
   "keywords": [
     "angular",
