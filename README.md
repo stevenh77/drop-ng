@@ -1,9 +1,6 @@
 # drop-ng
 An AngularJS wrapper module for Drop.js
 
-## Online demo
-[http://stevenhollidge.com/drop-ng/example/simple/](http://stevenhollidge.com/drop-ng/example/simple/)
-
 ## Screenshot
 ![drop-ng screenshot](/example/simple/screenshot.png?raw=true "drop-ng screenshot")
 
